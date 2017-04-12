@@ -3,6 +3,7 @@ from os import listdir
 from os.path import isfile
 from itertools import cycle
 from glob import glob
+from random import shuffle
 
 ####### CONFIG ######
 
@@ -40,11 +41,13 @@ def build_content_catalog():
 
 	pics = glob('./media/pics/*.[Jj][Pp]*[Gg]') #grab jpegs
 	pics += glob('./media/pics/*.[Pp][Nn][Gg]') #grab + add pngs
-	pics_cycle = cycle(pics)
+	shuffle(pics) #shuffles pics
+	pics_cycle = cycle(pics) #creates cycler
 
 	vids = glob('./media/vids/*.[Mm][Pp]4') #grabs mp4s
-	vics += glob('./media/vids/*.[Ww][Ee][Bb][Mm]') #grab webms
-	vids_cycle = cycle(vids)
+	vids += glob('./media/vids/*.[Ww][Ee][Bb][Mm]') #grab webms
+	shuffle(vids) #shuffles vids and 
+	vids_cycle = cycle(vids) #creates cycler
 
 def get_pics(num):
 	selected_pics = []
@@ -104,7 +107,7 @@ def main():
 		host = "0.0.0.0",
 		port = 8080,
 		threaded = True,
-		debug = True # MUST BE FALSE FOR DEPLOYMENT!!!
+		debug = False # MUST BE FALSE FOR DEPLOYMENT!!!
 	)
 
 #only executs if run as main
