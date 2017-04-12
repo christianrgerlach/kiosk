@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Dancool Slideshow</title>
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="../static/style.css" type="text/css" media="screen" />
+    <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js?ver=3.0.1'></script>
+    <script>
+    $(function() {
+
+        $("#vid").bind('ended', function() {
+            $("video").fadeOut(1000, function() {
+              location.reload();
+
+            })
+        });
+    });
+    </script>
+</head>
+
+<body >
+    <div id="video_container">
+        <video src="{{ vids[0] }}" id="vid" autoplay>
+    </div>
+</body>
+
+</html>

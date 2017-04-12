@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Dancool Slideshow</title>
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="../static/style.css" type="text/css" media="screen" />
+    <!-- JQuery -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <!-- JQuery Cycle2 -->
+    <script src="static/jquery.cycle2.min.js"></script>
+    <!-- JQuery Cycle2 Center -->
+    <script src="static/jquery.cycle2.center.js"></script>
+    <script>
+    $(function() {
+        // counts elapsed slides
+        var slide_counter = 1;
+
+        $('.cycle-slideshow').on('cycle-after', function(event, opts) {
+            slide_counter ++;
+            if (slide_counter == {{ pics | length }} ){
+                $(this).cycle('pause');
+            }
+            
+        });
+
+        $('.cycle-slideshow').on('cycle-paused', function(event, opts) {
+                setTimeout(function(){
+                    $('.cycle-slideshow').fadeOut(1000, function() {
+                        location.reload();
+                    });                    
+               }, 4500);
+        });
+    });
+
+    </script>
+</head>
+<body>
+    <div class="cycle-slideshow auto"
+    data-cycle-fx=fade 
+    data-cycle-timeout=4500 
+    data-cycle-loader=true 
+    data-cycle-progressive="#images"
+    data-cycle-auto-height=true
+    data-cycle-center-horz=true
+    data-cycle-center-vert=true
+    >
+        <!-- only one image declared in markup -->
+        <img src="{{ pics[0] | safe }}" class="pic cycle-slide">
+        <!-- 
+        JSON array of slides to be loaded progressively,
+        nested inside a script block.  The script block does not need
+        to be inslide the slideshow container, it can be anywhere on the
+        page.  Note the type on the script tag.
+        -->
+        <script id="images" type="text/cycle">
+            [
+                {% for src in pics[1:-1] %}
+                "<img src='{{ src | safe }}' class='pic'>",
+                {% endfor %}
+                "<img src='{{ pics[-1] }}' class='pic'>" 
+            ]
+        </script>
+    </div>
+
+</body>
+
+</html>
