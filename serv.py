@@ -38,9 +38,12 @@ def build_content_catalog():
 	global pics_cycle
 	global vids_cycle
 
-	pics = glob('./media/pics/*.[Jj][Pp]*[Gg]')
+	pics = glob('./media/pics/*.[Jj][Pp]*[Gg]') #grab jpegs
+	pics += glob('./media/pics/*.[Pp][Nn][Gg]') #grab + add pngs
 	pics_cycle = cycle(pics)
-	vids = glob('./media/vids/*.[Mm][Pp]4')
+
+	vids = glob('./media/vids/*.[Mm][Pp]4') #grabs mp4s
+	vics += glob('./media/vids/*.[Ww][Ee][Bb][Mm]') #grab webms
 	vids_cycle = cycle(vids)
 
 def get_pics(num):
@@ -101,7 +104,7 @@ def main():
 		host = "0.0.0.0",
 		port = 8080,
 		threaded = True,
-		debug = False # MUST BE FALSE FOR DEPLOYMENT!!!
+		debug = True # MUST BE FALSE FOR DEPLOYMENT!!!
 	)
 
 #only executs if run as main
