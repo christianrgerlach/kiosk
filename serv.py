@@ -7,7 +7,7 @@ from random import shuffle
 
 ####### CONFIG ######
 
-pic_slide_length = 4 #length of picture slideshow
+pic_slide_length = 12 #length of picture slideshow
 vid_slide_length = 1 #length of video slideshow *** HTML ONLY SUPPORTS 1 ***
 build_conent_catalog_freq = 500 #rebuild content catalog every N requests
 
@@ -98,7 +98,7 @@ def main():
 		host = "0.0.0.0",
 		port = 8080,
 		threaded = True,
-		debug = True # MUST BE FALSE FOR DEPLOYMENT!!!
+		debug = False # MUST BE FALSE FOR DEPLOYMENT!!!
 	)
 
 #only executes if run as main
