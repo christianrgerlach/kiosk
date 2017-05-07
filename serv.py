@@ -35,7 +35,7 @@ def build_content_catalog():
 			vids += glob('./media/common/vids/*.[Mm][Pp]4') #grabs mp4s
 			vids += glob('./media/common/vids/*.[Ww][Ee][Bb][Mm]') #grab webms
 			#gets location media
-			if content is not 'common':
+			if content != 'common':
 				pics += glob('./media/' + content + '/pics/*.[Jj][Pp]*[Gg]') #grab jpegs
 				pics += glob('./media/' + content + '/pics/*.[Pp][Nn][Gg]') #grab + add pngs
 				vids += glob('./media/' + content + '/vids/*.[Mm][Pp]4') #grabs mp4s
