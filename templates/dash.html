@@ -34,6 +34,7 @@ $(function() {
     <th>Checkin (rel)</th>
     <th>Active</th>
     <th>Last Code</th>
+    <th>Content</th>
     <th>Last Content</th>
     <th>Manage</th>
   </tr>
@@ -47,9 +48,10 @@ $(function() {
 		<td> {{ client_list[client][2] | time_since }} h:m:s </td>  <!-- Checkin (rel) -->
 		<td> {{ client_list[client][3] }} </td>  <!-- Active -->
 		<td> {{ client_list[client][4] }} </td>  <!-- Last Code -->
+		<td> <a href = "/loc/{{ client_list[client][0] }}/list" target="_blank">List</a> </td>
 		<td> 
 			<a href = "/clients/lastcontent_preview/{{ client }}" target="_blank">Preview</a> <!-- Last Content Preview -->
-			<a href = "/clients/lastcontent_listing/{{ client }}" target="_blank">Listing</a> <!-- Last Content Listing -->
+			<a href = "/clients/lastcontent_listing/{{ client }}" target="_blank">List</a> <!-- Last Content Listing -->
 		</td>  
 		<td>
 		<form action = "/clients/clear/{{ client }}" method = "post"><input type="submit" name="client_clear" value="Clear" /></form>

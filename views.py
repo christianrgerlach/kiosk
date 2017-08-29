@@ -42,8 +42,7 @@ def media(location = 'common'):
 		response = make_response (render_template('vid.html', content = content))
 
 	#get client ID
-	client_id = str(request.cookies.get('client_id'))
-	print 'client id type', type(client_id)
+	client_id = request.cookies.get('client_id')
 
 	#if None, new client
 	if not client_id:
@@ -55,7 +54,7 @@ def media(location = 'common'):
 
 	client_info = [location, request.remote_addr, datetime.now(), True, response, content]
 
-	client_list[client_id] = client_info
+	client_list[str(client_id)] = client_info
 
 	print 'current clients:', len(client_list)
 	for client in client_list.iterkeys():
