@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Streaming Dashboard</title>
+<link rel="stylesheet" href="/static/style.css" type="text/css" media="screen" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script>
+
+$(function() {
+	//hanlder for client tasks, accepts task & client ID
+    $("a.client_task").click(function(){
+    	instr = $(this).attr("id")
+    	instr_split = instr.split("_")
+
+    	task = instr_split[0]
+    	client = instr_split[1]
+    });
+});
+
+</script>
+</head>
+
+<body>
+<h3> Stream Dashboard </h3>
+
+<b> Clients:  {{ client_list_len }} </b>
+
+<table>
+  <tr>
+    <th>UUID</th>
+    <th>Stream</th>
+    <th>IP</th> 
+    <th>Checkin (abs)</th>
+    <th>Checkin (rel)</th>
+    <th>Active</th>
+    <th>Last Code</th>
+    <th>Last Content</th>
+    <th>Manage</th>
+  </tr>
+
+	{% for client in client_list.iterkeys() %}
+	  <tr>
+		<td> {{ client }} </td>  <!-- UUID -->
+		<td> <a href="/loc/{{ client_list[client][0] }}" target="_blank"> {{ client_list[client][0] }} </a> </td>  <!-- Stream -->
+		<td> {{ client_list[client][1] }} </td>  <!-- IP  -->
+		<td> {{ client_list[client][2] | format_time }} </td>  <!-- Checkin (abs) -->
+		<td> {{ client_list[client][2] | time_since }} h:m:s </td>  <!-- Checkin (rel) -->
+		<td> {{ client_list[client][3] }} </td>  <!-- Active -->
+		<td> {{ client_list[client][4] }} </td>  <!-- Last Code -->
+		<td> 
+			<a href = "/clients/lastcontent_preview/{{ client }}" target="_blank">Preview</a> <!-- Last Content Preview -->
+			<a href = "/clients/lastcontent_listing/{{ client }}" target="_blank">Listing</a> <!-- Last Content Listing -->
+		</td>  
+		<td>
+		<form action = "/clients/clear/{{ client }}" method = "post"><input type="submit" name="client_clear" value="Clear" /></form>
+		</td>
+
+		</tr>
+	{% endfor %}
+</table>
+<form action = "/clients/clear" method = "post"><input type="submit" name="clients_clear" value="Clear All" /></form>
+
+</body>
+</html>
+

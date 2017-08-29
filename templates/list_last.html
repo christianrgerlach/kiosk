@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Client Review</title>
+<link rel="stylesheet" href="/static/style.css" type="text/css" media="screen" />
+</head>
+
+<body>
+
+Latest media serving for client:
+<br>
+<br>
+<table>
+  <tr>
+    <th>UUID</th>
+    <th>Stream</th>
+    <th>IP</th> 
+    <th>Checkin (abs)</th>
+    <th>Checkin (rel)</th>
+    <th>Active</th>
+    <th>Last Code</th>
+    <th>Last Content</th>
+  </tr>
+  <tr>
+	<td> {{ client }} </td>  <!-- UUID -->
+	<td> <a href="/loc/{{ client_list[client][0] }}" target="_blank"> {{ client_list[client][0] }} </a> </td>  <!-- Stream -->
+	<td> {{ client_list[client][1] }} </td>  <!-- IP  -->
+	<td> {{ client_list[client][2] | format_time }} </td>  <!-- Checkin (abs) -->
+	<td> {{ client_list[client][2] | time_since }} h:m:s </td>  <!-- Checkin (rel) -->
+	<td> {{ client_list[client][3] }} </td>  <!-- Active -->
+	<td> {{ client_list[client][4] }} </td>  <!-- Last Code -->
+	<td> 
+		<a href = "/clients/lastcontent_preview/{{ client }}" target="_blank">Preview</a> <!-- Last Content Preview -->
+	</td>  
+  </tr>
+
+
+</table>
+<br>
+Media:
+<ul>
+{% for content in client_list[client][5] %}
+<li> <a href = '{{ content[1:] | safe }}'> {{ content[1:] | safe }} </a> </li>
+{% endfor %}
+</ul>
+
+</body>
+</html>

@@ -19,7 +19,7 @@
 
         $('.cycle-slideshow').on('cycle-after', function(event, opts) {
             slide_counter ++;
-            if (slide_counter == {{ pics | length }} ){
+            if (slide_counter == {{ content | length }} ){
                 $(this).cycle('pause');
             }
             
@@ -47,7 +47,7 @@
     data-cycle-center-vert=true
     >
         <!-- only one image declared in markup -->
-        <img src="{{ pics[0][1:] | safe }}" class="pic cycle-slide">
+        <img src="{{ content[0][1:] | safe }}" class="pic cycle-slide">
         <!-- 
         JSON array of slides to be loaded progressively,
         nested inside a script block.  The script block does not need
@@ -56,10 +56,10 @@
         -->
         <script id="images" type="text/cycle">
             [
-                {% for src in pics[1:-1] %}
+                {% for src in content[1:-1] %}
                 "<img src='{{ src[1:] | safe }}' class='pic'>",
                 {% endfor %}
-                "<img src='{{ pics[-1][1:] | safe }}' class='pic'>" 
+                "<img src='{{ content[-1][1:] | safe }}' class='pic'>" 
             ]
         </script>
     </div>

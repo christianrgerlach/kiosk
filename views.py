@@ -1,6 +1,7 @@
 from app import *
 from catalog import get_pics, get_vids, pic_catalog, vid_catalog, build_content_catalog
 from client_mon import client_list
+from filters import format_time, time_since
 
 from os.path import isfile
 from uuid import uuid4
@@ -24,7 +25,6 @@ counter = 0
 def index():
 	return redirect(url_for('media', location = 'common'))
 
-
 @app.route('/loc/<location>')
 def media(location = 'common'):
 	global counter
@@ -36,10 +36,12 @@ def media(location = 'common'):
 
 	if counter % 2 == 0: # If counter is even
 		counter += 1
-		response = make_response (render_template('pic.html', pics = get_pics(pic_slide_length, location)))
+		content = get_pics(pic_slide_length, location)
+		response = make_response (render_template('pic.html', content = content))
 	else: #if counter is odd
 		counter += 1
-		response = make_response (render_template('vid.html', vids = get_vids(vid_slide_length, location)))
+		content = get_vids(vid_slide_length, location)
+		response = make_response (render_template('vid.html', content = content))
 
 	#get client ID
 	client_id = request.cookies.get('client_id')
@@ -52,9 +54,13 @@ def media(location = 'common'):
 	else:
 		print 'repeat_client:', client_id
 
-	client_info = (location, request.remote_addr, datetime.now())
+	client_info = (location, request.remote_addr, datetime.now(), True, response, content)
 
 	client_list[client_id] = client_info
+
+	print 'current clients'
+	for client in client_list.iterkeys():
+		print client
 
 	return response
 
@@ -62,9 +68,27 @@ def media(location = 'common'):
 def list(location = 'common'):
 	return render_template('list.html', pic_list = pic_catalog[location], vid_list = vid_catalog[location])
 
-@app.route('/clients')
-def clients(location = 'common'):
-	 return render_template('clients.html', client_list = client_list)
+@app.route('/dash')
+def dash():
+	return render_template('dash.html', client_list = client_list, client_list_len = len(client_list))
+
+@app.route('/clients/clear', methods = ['GET','POST'])
+@app.route('/clients/clear/<client>', methods = ['GET','POST'])
+def clients_clear(client = None):
+	global client_list
+	if not client:
+		client_list = {}
+	else:
+		del client_list[client]
+	return redirect(url_for('dash'))
+
+@app.route('/clients/lastcontent_preview/<client>')
+def client_last_content_preview(client):
+	return client_list[client][4]
+
+@app.route('/clients/lastcontent_listing/<client>')
+def client_last_content_listing(client):
+	return render_template('list_last.html', client = client, client_list = client_list)
 
 #returns files
 @app.route('/<path:path>')
