@@ -6,8 +6,6 @@ from filters import format_time, time_since
 from os.path import isfile
 from uuid import uuid4
 from datetime import datetime
-from werkzeug.exceptions import InternalServerError
-
 
 ####### CONFIG ######
 
@@ -106,7 +104,7 @@ def update():
 	build_content_catalog()
 	return redirect(url_for('media', location = 'common'))
 
-@app.errorhandler(InternalServerError)
-def handle_internal_server_error(e):
+@app.errorhandler(Exception)
+def handle_exception(e):
 	return redirect(url_for('media', location = 'common'))
 

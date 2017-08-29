@@ -13,7 +13,7 @@ def disconnect_monitor():
 		for client in client_list:
 			time_since_checkin = (datetime.now() - client_list[client][2]).total_seconds()
 			#print 'checking client:', client, 'checked in', time_since_checkin, 'ago'
-			if time_since_checkin > 120:
+			if time_since_checkin > 600:
 				print client, 'lost!'
 				client_list[client][3] = False
 		sleep(15)

@@ -11,7 +11,7 @@ def main():
 		host = "0.0.0.0",
 		port = 8080,
 		threaded = True,
-		debug = True # MUST BE FALSE FOR DEPLOYMENT!!!
+		debug = False # MUST BE FALSE FOR DEPLOYMENT!!!
 	)
 
 #only executes if run as main
