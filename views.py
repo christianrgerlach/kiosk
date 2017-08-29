@@ -54,7 +54,7 @@ def media(location = 'common'):
 	else:
 		print 'repeat_client:', client_id
 
-	client_info = (location, request.remote_addr, datetime.now(), True, response, content)
+	client_info = [location, request.remote_addr, datetime.now(), True, response, content]
 
 	client_list[client_id] = client_info
 
