@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Active Clients</title>
+<link rel="stylesheet" href="/static/style.css" type="text/css" media="screen" />
+</head>
+
+<body>
+<table>
+  <tr>
+    <th>UUID</th>
+    <th>Stream</th>
+    <th>IP</th> 
+    <th>Checkin</th>
+  </tr>
+	{% for client in client_list %}
+	  <tr>
+		<td> {{ client }} </td>
+		<td> {{ client_list[client][0] }} </td>
+		<td> {{client_list[client][1] }} </td>
+		<td> {{client_list[client][2] }} </td>
+		</tr>
+	{% endfor %}
+</table>
+</body>
+</html>
