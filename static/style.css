@@ -2,11 +2,16 @@ html,
 body {
     height: 100vh;
     margin: 0;
-    background-color: black;
+    
     overflow: hidden;
 }
 
+table, th, td {
+    border: 1px solid black;
+}
+
 .cycle-slideshow {
+    background-color: black;
     height: 100%
 }
 
@@ -16,6 +21,7 @@ body {
 }
 
 #video_container {
+    background-color: black;
     min-height: 100%;
     min-width: 100%;
 }
@@ -31,3 +37,4 @@ body {
     z-index: 1;
     background-size: cover;
 }
+

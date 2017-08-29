@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+</head>
+
+<body>
+
+Current media listing:
+<br>
+
+<ul>
+{% for pic in pic_list %}
+<li> <a href = '{{ pic[1:] | safe }}'> {{ pic[1:] | safe }} </a> </li>
+{% endfor %}
+
+{% for vid in vid_list %}
+<li> <a href = '{{ vid[1:] | safe }}'> {{ vid[1:] | safe }} </a> </li>
+{% endfor %}
+</ul>
+
+</body>
+</html>
