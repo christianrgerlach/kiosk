@@ -9,6 +9,8 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
+
+
 #maps of locations to arrays of content
 pic_catalog = {}
 vid_catalog = {}
@@ -18,6 +20,7 @@ pic_catalog_iter = {}
 vid_catalog_iter = {}
 
 def build_content_catalog():
+	global catalog_build_time
 	global pic_catalog
 	global vid_catalog
 	global pic_catalog_iter

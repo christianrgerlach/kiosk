@@ -14,7 +14,7 @@ def disconnect_monitor():
 	while True:
 		for client in client_list:
 			time_since_checkin = (datetime.now() - client_list[client][2]).total_seconds()
-			#print 'checking client:', client, 'checked in', time_since_checkin, 'ago'
+			print 'checking client:', client, 'checked in', time_since_checkin, 'ago'
 			if time_since_checkin > client_timeout:
 				print client, 'lost!'
 				client_list[client][3] = False
@@ -32,7 +32,7 @@ def disconnect_monitor():
 					'Last served media:',
 					str(client_list[client][5])
 					])
-				send_alert(msg)
+				#send_alert(msg)
 
 		sleep(15)
 

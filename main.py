@@ -1,7 +1,7 @@
 from app import *
-from views import *
 from catalog import build_content_catalog
-from client_mon import disconnect_monitor
+import client_mon
+from views import *
 
 #main
 def main():

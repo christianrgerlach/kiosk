@@ -1,11 +1,11 @@
+from os.path import isfile
+from uuid import uuid4
+from datetime import datetime
+
 from app import *
 from catalog import get_pics, get_vids, pic_catalog, vid_catalog, build_content_catalog
 from client_mon import client_list
 from filters import format_time, time_since
-
-from os.path import isfile
-from uuid import uuid4
-from datetime import datetime
 
 ####### CONFIG ######
 
@@ -68,6 +68,7 @@ def list(location = 'common'):
 
 @app.route('/dash')
 def dash():
+	global catalog_build_time
 	return render_template('dash.html', client_list = client_list, client_list_len = len(client_list))
 
 @app.route('/clients/clear', methods = ['GET','POST'])
@@ -99,10 +100,10 @@ def file_path(path):
 		return abort(404)
 
 #forces catalog update
-@app.route('/catalog/')
+@app.route('/catalog', methods = ['GET','POST'])
 def update():
 	build_content_catalog()
-	return redirect(url_for('media', location = 'common'))
+	return redirect(url_for('dash'))
 
 @app.errorhandler(Exception)
 def handle_exception(e):
